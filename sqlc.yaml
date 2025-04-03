@@ -1,0 +1,17 @@
+version: "2"
+servers:
+  - engine: postgresql
+    uri: "dbname=shopi"
+sql:
+  - engine: "postgresql"
+    schema: "internal/postgres/migrations"
+    queries: "internal/api/database/queries"
+    gen:
+      go:
+        out: "internal/api/database"
+        sql_package: "pgx/v5"
+        emit_empty_slices: true
+        emit_json_tags: true
+        emit_pointers_for_null_types: true
+        emit_enum_valid_method: true
+        json_tags_case_style: camel

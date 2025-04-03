@@ -1,0 +1,10 @@
+# local env files
+.env
+.env*.local
+
+# Local dev files and folders
+/.shopi
+
+# Build files
+/api*
+/api.*

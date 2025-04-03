@@ -1,0 +1,9 @@
+/.git
+.dockerignore
+.env
+.env.example
+.gitignore
+Dockerfile
+LICENSE
+README.md
+sqlc.yaml
