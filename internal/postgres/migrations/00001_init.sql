@@ -1,5 +1,7 @@
 -- +goose Up
 -- +goose StatementBegin
+create extension if not exists hstore;
+
 create table categories (
     id      bigint       primary key generated always as identity,
     image   text         not null,
