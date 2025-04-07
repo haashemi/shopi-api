@@ -39,30 +39,41 @@ func (q *Queries) ListCategories(ctx context.Context) ([]Category, error) {
 }
 
 const listProducts = `-- name: ListProducts :many
-select id, category_id, images, name_fa, name_en, description, attributes, price, price_off, discount, quantity from products
+select
+    name_fa as name,
+    images[1]::text as image,
+    price,
+    price_off,
+    discount,
+    quantity = 0 as out_of_stock
+from products
 `
 
-func (q *Queries) ListProducts(ctx context.Context) ([]Product, error) {
+type ListProductsRow struct {
+	Name       string `json:"name"`
+	Image      string `json:"image"`
+	Price      int64  `json:"price"`
+	PriceOff   *int64 `json:"priceOff"`
+	Discount   *int16 `json:"discount"`
+	OutOfStock bool   `json:"outOfStock"`
+}
+
+func (q *Queries) ListProducts(ctx context.Context) ([]ListProductsRow, error) {
 	rows, err := q.db.Query(ctx, listProducts)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []Product{}
+	items := []ListProductsRow{}
 	for rows.Next() {
-		var i Product
+		var i ListProductsRow
 		if err := rows.Scan(
-			&i.ID,
-			&i.CategoryID,
-			&i.Images,
-			&i.NameFa,
-			&i.NameEn,
-			&i.Description,
-			&i.Attributes,
+			&i.Name,
+			&i.Image,
 			&i.Price,
 			&i.PriceOff,
 			&i.Discount,
-			&i.Quantity,
+			&i.OutOfStock,
 		); err != nil {
 			return nil, err
 		}

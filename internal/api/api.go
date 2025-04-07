@@ -3,9 +3,9 @@ package api
 import (
 	"net/http"
 
-	"github.com/haashemi/shopi-api/internal/api/database"
-	"github.com/haashemi/shopi-api/internal/config"
-	"github.com/haashemi/shopi-api/internal/postgres"
+	"shopi-api/internal/api/database"
+	"shopi-api/internal/config"
+	"shopi-api/internal/postgres"
 
 	"github.com/labstack/echo/v4"
 )
