@@ -1,0 +1,46 @@
+definitions:
+  echo.HTTPError:
+    properties:
+      message: {}
+    type: object
+  shopi-api_internal_api_database.ListProductsRow:
+    properties:
+      discount:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      outOfStock:
+        type: boolean
+      price:
+        type: integer
+      priceOff:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /public/products:
+    get:
+      description: List all products in any amount or filter depending on the query
+        params.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shopi-api_internal_api_database.ListProductsRow'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Lists the products
+      tags:
+      - products
+swagger: "2.0"

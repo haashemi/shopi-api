@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/haashemi/shopi-api/internal/api"
-	"github.com/haashemi/shopi-api/internal/config"
-	"github.com/haashemi/shopi-api/internal/postgres"
+	"shopi-api/internal/api"
+	"shopi-api/internal/config"
+	"shopi-api/internal/postgres"
 )
 
 func main() {
@@ -31,5 +31,5 @@ func main() {
 		DB:     db,
 	}
 
-	RunAPI(conf.APIAddr, apiConf)
+	RunAPI(conf, apiConf)
 }
