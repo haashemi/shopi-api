@@ -8,6 +8,10 @@ import (
 type Config struct {
 	APIAddr     string `env:"API_ADDR"`
 	PostgresURL string `env:"POSTGRES_URL"`
+
+	SwaggerHost string `env:"SWAGGER_HOST" envDefault:"localhost"`
+	SwaggerUser string `env:"SWAGGER_USER" envDefault:"developer"`
+	SwaggerPass string `env:"SWAGGER_PASS" envDefault:"developer"`
 }
 
 func Load() (*Config, error) {
