@@ -12,7 +12,7 @@ order by
     quantity = 0,
     case when @order_by::text = 'name'          then name_fa end asc,
     case when @order_by::text = 'price_highest' then price end desc,
-    case when @order_by::text = 'price_lowest'  then price_off end asc;
+    case when @order_by::text = 'price_lowest'  then price end asc;
 
 -- name: GetProduct :one
 select
