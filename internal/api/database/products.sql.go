@@ -76,6 +76,7 @@ select
     quantity = 0 as out_of_stock
 from products
 order by
+    quantity = 0,
     case when $1::text = 'name'          then name_fa end asc,
     case when $1::text = 'price_highest' then price end desc,
     case when $1::text = 'price_lowest'  then price_off end asc
