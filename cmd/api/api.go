@@ -47,16 +47,20 @@ func RunAPI(conf *config.Config, apiConf *api.APIConfig) {
 	publicG := e.Group("/api/public")
 	{
 		publicG.GET("/products", a.ListProducts)
+		publicG.GET("/products/:id", a.GetProduct)
 	}
 
 	// As it's just an experimental API, I don't really care about using basic auth here.
-	swaggerAuth := middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
-		if username == conf.SwaggerUser && password == conf.SwaggerPass {
-			return true, nil
-		}
-		return false, nil
-	})
-	e.GET("/swagger/*", echoSwagger.WrapHandler, swaggerAuth)
+	e.GET(
+		"/swagger/*",
+		echoSwagger.WrapHandler,
+		middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
+			if username == conf.SwaggerUser && password == conf.SwaggerPass {
+				return true, nil
+			}
+			return false, nil
+		}),
+	)
 
 	e.Logger.Fatal(e.Start(conf.APIAddr))
 }

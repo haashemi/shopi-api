@@ -10,6 +10,13 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// TODO: Complete its implementation
+type HTTPError struct {
+	// Code    string `json:"code"`
+
+	Message string `json:"message"`
+}
+
 type API struct {
 	*APIConfig
 	DB *database.Queries
@@ -30,12 +37,12 @@ func GetAPI(conf *APIConfig) *API {
 func bind(c echo.Context, body any) *echo.HTTPError {
 	err := c.Bind(body)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, "Request binding failed.")
+		return echo.NewHTTPError(http.StatusBadRequest, "خطا در پردازش درخواست.")
 	}
 
 	err = c.Validate(body)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, "Request validation failed.")
+		return echo.NewHTTPError(http.StatusBadRequest, "اطلاعات ورودی نامعتبر است.")
 	}
 
 	return nil

@@ -25,23 +25,86 @@ const docTemplate = `{
                     "products"
                 ],
                 "summary": "Lists the products",
+                "parameters": [
+                    {
+                        "enum": [
+                            "name",
+                            "price_highest",
+                            "price_lowest"
+                        ],
+                        "type": "string",
+                        "description": "Product list order",
+                        "name": "orderBy",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shopi-api_internal_api_database.ListProductsRow"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_api.ListProductsRow"
+                            }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/echo.HTTPError"
+                            "$ref": "#/definitions/internal_api.HTTPError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/echo.HTTPError"
+                            "$ref": "#/definitions/internal_api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/public/products/{id}": {
+            "get": {
+                "description": "List all products in any amount or filter depending on the query params.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "Lists the products",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_api.GetProductResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_api.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/internal_api.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_api.HTTPError"
                         }
                     }
                 }
@@ -49,16 +112,65 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "echo.HTTPError": {
+        "internal_api.GetProductResponse": {
             "type": "object",
             "properties": {
-                "message": {}
+                "attributes": {
+                    "$ref": "#/definitions/pgtype.Hstore"
+                },
+                "categoryId": {
+                    "type": "integer"
+                },
+                "categoryImage": {
+                    "type": "string"
+                },
+                "categoryName": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "nameEn": {
+                    "type": "string"
+                },
+                "nameFa": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "priceOff": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
             }
         },
-        "shopi-api_internal_api_database.ListProductsRow": {
+        "internal_api.HTTPError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_api.ListProductsRow": {
             "type": "object",
             "properties": {
                 "discount": {
+                    "type": "integer"
+                },
+                "id": {
                     "type": "integer"
                 },
                 "image": {
@@ -76,6 +188,12 @@ const docTemplate = `{
                 "priceOff": {
                     "type": "integer"
                 }
+            }
+        },
+        "pgtype.Hstore": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
             }
         }
     }

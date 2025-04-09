@@ -1,11 +1,43 @@
 definitions:
-  echo.HTTPError:
+  internal_api.GetProductResponse:
     properties:
-      message: {}
+      attributes:
+        $ref: '#/definitions/pgtype.Hstore'
+      categoryId:
+        type: integer
+      categoryImage:
+        type: string
+      categoryName:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      images:
+        items:
+          type: string
+        type: array
+      nameEn:
+        type: string
+      nameFa:
+        type: string
+      price:
+        type: integer
+      priceOff:
+        type: integer
+      quantity:
+        type: integer
     type: object
-  shopi-api_internal_api_database.ListProductsRow:
+  internal_api.HTTPError:
+    properties:
+      message:
+        type: string
+    type: object
+  internal_api.ListProductsRow:
     properties:
       discount:
+        type: integer
+      id:
         type: integer
       image:
         type: string
@@ -18,6 +50,10 @@ definitions:
       priceOff:
         type: integer
     type: object
+  pgtype.Hstore:
+    additionalProperties:
+      type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -25,21 +61,64 @@ paths:
     get:
       description: List all products in any amount or filter depending on the query
         params.
+      parameters:
+      - description: Product list order
+        enum:
+        - name
+        - price_highest
+        - price_lowest
+        in: query
+        name: orderBy
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/shopi-api_internal_api_database.ListProductsRow'
+            items:
+              $ref: '#/definitions/internal_api.ListProductsRow'
+            type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/echo.HTTPError'
+            $ref: '#/definitions/internal_api.HTTPError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/echo.HTTPError'
+            $ref: '#/definitions/internal_api.HTTPError'
+      summary: Lists the products
+      tags:
+      - products
+  /public/products/{id}:
+    get:
+      description: List all products in any amount or filter depending on the query
+        params.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_api.GetProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_api.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/internal_api.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_api.HTTPError'
       summary: Lists the products
       tags:
       - products
