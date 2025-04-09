@@ -21,7 +21,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "categories"
+                    "Public"
                 ],
                 "summary": "Lists the categories",
                 "responses": {
@@ -43,13 +43,41 @@ const docTemplate = `{
                 }
             }
         },
+        "/public/hero-sliders": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Lists the hero sliders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_api.ListHeroSlidersRow"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/public/products": {
             "get": {
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "products"
+                    "Public"
                 ],
                 "summary": "Lists the products",
                 "parameters": [
@@ -96,7 +124,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "products"
+                    "Public"
                 ],
                 "summary": "Fetches a product info",
                 "parameters": [
@@ -200,6 +228,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "nameFa": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_api.ListHeroSlidersRow": {
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "string"
+                },
+                "url": {
                     "type": "string"
                 }
             }

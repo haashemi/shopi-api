@@ -13,7 +13,7 @@ type ListCategoriesResponse []ListCategoriesRow
 
 // @Summary		Lists the categories
 // @Produce		json
-// @Tags		categories
+// @Tags		Public
 // @Success		200		{array}		ListCategoriesRow
 // @Failure		500		{object}	HTTPError
 // @Router		/public/categories [get]

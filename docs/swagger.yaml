@@ -42,6 +42,13 @@ definitions:
       nameFa:
         type: string
     type: object
+  internal_api.ListHeroSlidersRow:
+    properties:
+      image:
+        type: string
+      url:
+        type: string
+    type: object
   internal_api.ListProductsRow:
     properties:
       discount:
@@ -83,7 +90,25 @@ paths:
             $ref: '#/definitions/internal_api.HTTPError'
       summary: Lists the categories
       tags:
-      - categories
+      - Public
+  /public/hero-sliders:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_api.ListHeroSlidersRow'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_api.HTTPError'
+      summary: Lists the hero sliders
+      tags:
+      - Public
   /public/products:
     get:
       parameters:
@@ -114,7 +139,7 @@ paths:
             $ref: '#/definitions/internal_api.HTTPError'
       summary: Lists the products
       tags:
-      - products
+      - Public
   /public/products/{id}:
     get:
       parameters:
@@ -144,5 +169,5 @@ paths:
             $ref: '#/definitions/internal_api.HTTPError'
       summary: Fetches a product info
       tags:
-      - products
+      - Public
 swagger: "2.0"

@@ -18,7 +18,7 @@ type ListProductsResponse []ListProductsRow
 
 // @Summary		Lists the products
 // @Produce		json
-// @Tags		products
+// @Tags		Public
 // @Param		orderBy	query		string	false	"Product list order"	Enums(name, price_highest, price_lowest)
 // @Success		200		{array}		ListProductsRow
 // @Failure		400		{object}	HTTPError
@@ -46,7 +46,7 @@ type GetProductResponse database.GetProductRow
 
 // @Summary		Fetches a product info
 // @Produce		json
-// @Tags		products
+// @Tags		Public
 // @Param		id	    path		int	true	"Product ID"
 // @Success		200		{object}	GetProductResponse
 // @Failure		400		{object}	HTTPError
