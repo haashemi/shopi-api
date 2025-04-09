@@ -33,6 +33,15 @@ definitions:
       message:
         type: string
     type: object
+  internal_api.ListCategoriesRow:
+    properties:
+      image:
+        type: string
+      nameEn:
+        type: string
+      nameFa:
+        type: string
+    type: object
   internal_api.ListProductsRow:
     properties:
       discount:
@@ -57,10 +66,26 @@ definitions:
 info:
   contact: {}
 paths:
+  /public/categories:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_api.ListCategoriesRow'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_api.HTTPError'
+      summary: Lists the categories
+      tags:
+      - categories
   /public/products:
     get:
-      description: List all products in any amount or filter depending on the query
-        params.
       parameters:
       - description: Product list order
         enum:
@@ -92,8 +117,6 @@ paths:
       - products
   /public/products/{id}:
     get:
-      description: Selects all product and its category info and returns them in an
-        object.
       parameters:
       - description: Product ID
         in: path

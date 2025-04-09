@@ -15,9 +15,36 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/public/categories": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Lists the categories",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_api.ListCategoriesRow"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_api.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/public/products": {
             "get": {
-                "description": "List all products in any amount or filter depending on the query params.",
                 "produces": [
                     "application/json"
                 ],
@@ -65,7 +92,6 @@ const docTemplate = `{
         },
         "/public/products/{id}": {
             "get": {
-                "description": "Selects all product and its category info and returns them in an object.",
                 "produces": [
                     "application/json"
                 ],
@@ -160,6 +186,20 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_api.ListCategoriesRow": {
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "string"
+                },
+                "nameEn": {
+                    "type": "string"
+                },
+                "nameFa": {
                     "type": "string"
                 }
             }

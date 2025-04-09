@@ -17,7 +17,6 @@ type ListProductsRow = database.ListProductsRow
 type ListProductsResponse []ListProductsRow
 
 // @Summary		Lists the products
-// @Description	List all products in any amount or filter depending on the query params.
 // @Produce		json
 // @Tags		products
 // @Param		orderBy	query		string	false	"Product list order"	Enums(name, price_highest, price_lowest)
@@ -46,7 +45,6 @@ type GetProductRequest struct {
 type GetProductResponse database.GetProductRow
 
 // @Summary		Fetches a product info
-// @Description	Selects all product and its category info and returns them in an object.
 // @Produce		json
 // @Tags		products
 // @Param		id	    path		int	true	"Product ID"

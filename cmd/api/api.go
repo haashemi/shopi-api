@@ -46,6 +46,8 @@ func RunAPI(conf *config.Config, apiConf *api.APIConfig) {
 
 	publicG := e.Group("/api/public")
 	{
+		publicG.GET("/categories", a.ListCategories)
+
 		publicG.GET("/products", a.ListProducts)
 		publicG.GET("/products/:id", a.GetProduct)
 	}
