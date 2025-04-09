@@ -94,3 +94,10 @@ insert into products(category_id, images, name_fa, name_en, description, attribu
         null,
         21
     );
+
+insert into hero_sliders(url, image, priority) values
+  ('/explore?x=1', '/images/routes/home/hero-slider-1.png', 1),
+  ('/explore?x=2', '/images/routes/home/hero-slider-2.png', 2),
+  ('/explore?x=3', '/images/routes/home/hero-slider-3.png', 3),
+  ('/explore?x=4', '/images/routes/home/hero-slider-4.png', 4),
+  ('/explore?x=5', '/images/routes/home/hero-slider-5.png', 5);
