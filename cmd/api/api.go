@@ -48,6 +48,8 @@ func RunAPI(conf *config.Config, apiConf *api.APIConfig) {
 	{
 		publicG.GET("/categories", a.ListCategories)
 
+		publicG.GET("/hero-sliders", a.ListHeroSliders)
+
 		publicG.GET("/products", a.ListProducts)
 		publicG.GET("/products/:id", a.GetProduct)
 	}

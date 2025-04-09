@@ -15,6 +15,13 @@ type Category struct {
 	NameEn string `json:"nameEn"`
 }
 
+type HeroSlider struct {
+	ID       int64  `json:"id"`
+	Url      string `json:"url"`
+	Image    string `json:"image"`
+	Priority int16  `json:"priority"`
+}
+
 type Product struct {
 	ID          int64         `json:"id"`
 	CategoryID  int64         `json:"categoryId"`
