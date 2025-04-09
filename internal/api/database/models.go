@@ -25,6 +25,6 @@ type Product struct {
 	Attributes  pgtype.Hstore `json:"attributes"`
 	Price       int64         `json:"price"`
 	PriceOff    *int64        `json:"priceOff"`
-	Discount    *int16        `json:"discount"`
 	Quantity    int64         `json:"quantity"`
+	Discount    *int16        `json:"discount"`
 }
