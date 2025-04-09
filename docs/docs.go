@@ -65,14 +65,14 @@ const docTemplate = `{
         },
         "/public/products/{id}": {
             "get": {
-                "description": "List all products in any amount or filter depending on the query params.",
+                "description": "Selects all product and its category info and returns them in an object.",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "products"
                 ],
-                "summary": "Lists the products",
+                "summary": "Fetches a product info",
                 "parameters": [
                     {
                         "type": "integer",
