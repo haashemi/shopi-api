@@ -12,7 +12,7 @@ tasks:
   build:
     env: { CGO_ENABLED: 0 }
     cmds:
-      - rm ./api
+      - rm -f ./api
       - go build ./cmd/api
 
   prod:
