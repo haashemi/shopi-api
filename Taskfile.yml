@@ -1,0 +1,26 @@
+version: "3"
+
+tasks:
+  sqlc:
+    cmds:
+      - sqlc generate
+
+  swag:
+    cmds:
+      - swag init --parseDependency -g ./cmd/api/main.go
+
+  build:
+    env: { CGO_ENABLED: 0 }
+    cmds:
+      - rm ./api
+      - go build ./cmd/api
+
+  prod:
+    deps: [sqlc, swag, build]
+    cmds:
+      - upx --force-overwrite ./api
+
+  dev:
+    env: { DEBUG: true }
+    deps: [build]
+    cmds: [./api]
